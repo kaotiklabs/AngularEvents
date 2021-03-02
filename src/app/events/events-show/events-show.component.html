@@ -1,0 +1,34 @@
+
+<!-- <app-event-add (notifyAddItem)="getAddNotification($event)"></app-event-add> -->
+
+<nav class="navbar navbar-light bg-light justify-content-between mt-3"> 
+  <ul class="nav nav-pills"> 
+    <li class="nav-item">
+      <a class="nav-link" href="#" (click)="orderDate($event)">Orden por fecha</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#" (click)="orderPrice($event)">Orden por precio</a>
+    </li>
+  </ul>
+  <form class="form-inline">
+    <input class="form-control mr-sm-2" type="text" [(ngModel)]="filterSearch" name="search" placeholder="Search" aria-label="Search">  
+  </form>   
+</nav>
+
+<div class="row">   
+    <label class="col-12">
+      Listado filtrado por: {{filterSearch}}
+    </label>
+
+    <div class="table-responsive" *ngIf="!events">
+      <h3>No hay eventos disponibles</h3>
+    </div>
+
+  
+
+    <app-event-item (notifyDeleteItem)="getDeleteNotification(event)" class="row no-gutters col-6 mt-4"
+      [event]="event"
+      *ngFor="let event of events | eventFilter:filterSearch">
+    </app-event-item>
+  
+</div>

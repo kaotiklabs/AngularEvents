@@ -1,0 +1,12 @@
+<div class="card" *ngIf="event">
+  <img class="card-img-top" [src]="event.image" [routerLink]="['/events', event.id]">
+  <div class="card-body">
+    <h4 class="card-title" [routerLink]="['/events', event.id]">{{event.title | titlecase}}</h4>
+    <p class="card-text">{{event.description}}</p>
+    <button class="btn btn-danger ml-3 foat-right" (click)="deleteEvent()">Delete</button>
+  </div>
+  <div class="card-footer text-muted">
+    {{event.date | date:'dd/MM/y'}}
+    <span class="float-right">{{event.price | currency:'EUR':'symbol'}}</span>
+  </div>
+</div>

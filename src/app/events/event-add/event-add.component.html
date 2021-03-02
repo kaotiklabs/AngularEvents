@@ -1,0 +1,43 @@
+<form class="mt-4" (ngSubmit)="addEvent()" #eventForm="ngForm" novalidate>
+    
+    <div class="form-group">
+      <label for="name">Nombre</label>      
+      <input type="text" class="form-control" name="title" [(ngModel)]="newEvent.title" placeholder="Enter name" 
+      required minlength="5" #titleModel="ngModel"
+      [ngClass]="validClasses(titleModel, 'is-valid', 'is-invalid')">         
+      <div *ngIf="titleModel.touched && titleModel.invalid" class="alert alert-danger"> Título requerido (mínimo 5 caracteres)</div>
+    </div>
+
+    <div class="form-group">
+      <label for="date">Fecha</label>
+      <input type="date" class="form-control" name="date" [(ngModel)]="newEvent.date"
+      required #dateModel="ngModel"  [minDate]="fechaHoy"
+      [ngClass]="validClasses(dateModel, 'is-valid', 'is-invalid')">
+      <div *ngIf="dateModel.touched && dateModel.invalid" class="alert alert-danger"> Fecha no válida</div>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Descripción</label>
+      <textarea class="form-control" name="description" [(ngModel)]="newEvent.description" rows="3" 
+      required #descModel="ngModel" 
+      [ngClass]="validClasses(descModel, 'is-valid', 'is-invalid')">                  
+      </textarea>
+      <div *ngIf="descModel.touched && descModel.invalid" class="alert alert-danger"> Descripción no válida</div>
+    </div>
+
+    <div class="form-group">
+      <label for="price">Precio</label>
+      <input type="number" class="form-control" name="price" [(ngModel)]="newEvent.price" min="0.00" max="10000.00" step="0.01"
+      required #priceModel="ngModel" 
+      [ngClass]="validClasses(priceModel, 'is-valid', 'is-invalid')">                        
+      <div *ngIf="priceModel.touched && priceModel.invalid" class="alert alert-danger"> Precio no válido</div>
+    </div>
+
+    <div class="form-group">
+      <label for="image">Imagen</label>
+      <input type="file" class="form-control" name="image" #fileImage (change)="changeImage(fileImage)">
+    </div>
+
+    <img [src]="newEvent.image" alt="" class="img-thumbnail">
+    <button type="submit" class="btn btn-primary"  [disabled]="eventForm.invalid">Create</button> 
+  </form>
